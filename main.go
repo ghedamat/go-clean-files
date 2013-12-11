@@ -1,32 +1,21 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"io/ioutil"
-	"os"
-	"sort"
+	"github.com/ghedamat/go-clean-files/cleaner"
 )
 
-// byName implements sort.Interface.
-type byDate []os.FileInfo
-
-func (f byDate) Len() int           { return len(f) }
-func (f byDate) Less(i, j int) bool { return f[i].ModTime().Before(f[j].ModTime()) }
-func (f byDate) Swap(i, j int)      { f[i], f[j] = f[j], f[i] }
-
-func getFiles() []os.FileInfo {
-	files, _ := ioutil.ReadDir("./test")
-	return files
-}
-
-func sortFiles(files []os.FileInfo) {
-	sort.Sort(byDate(files))
-}
-
 func main() {
-	files := getFiles()
-	for _, f := range files[0:10] {
-		fmt.Println(f.ModTime(), f.Name())
+	flag.Parse()
+	root := flag.Arg(0)
+	files := cleaner.GetSortedFiles(root)
+
+	for _, f := range files {
+		fmt.Printf("%s %s\n", f.Info.ModTime(), f.Path)
 	}
+	fmt.Println("files found: ", len(files))
+
+	//readdir.SendEmail()
 
 }
