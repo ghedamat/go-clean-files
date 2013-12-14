@@ -12,6 +12,7 @@ type Settings struct {
 	Port     int    `json:port`
 	Username string `json:username`
 	Password string `json:password`
+	To       string `json:to`
 }
 
 func ReadConf() Settings {
