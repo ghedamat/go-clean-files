@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -25,10 +26,11 @@ func (conf Settings) ToAddresses() []string {
 	return parts
 }
 
-func openConf() *os.File {
-	configFile, err := os.Open("config.json")
+func openConf(path string) *os.File {
+	path, _ = filepath.Abs(path)
+	configFile, err := os.Open(path)
 	if err != nil {
-		log.Fatal("opening config file", err.Error())
+		log.Fatal("opening config file ", err.Error())
 	}
 	return configFile
 }
@@ -48,5 +50,6 @@ func ReadConf(configFile io.Reader) Settings {
 }
 
 func ParseConf() Settings {
-	return ReadConf(openConf())
+	path := "~/.go-clean-filesrc"
+	return ReadConf(openConf(path))
 }

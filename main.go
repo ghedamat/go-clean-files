@@ -16,6 +16,6 @@ func main() {
 	}
 	fmt.Println("files found: ", len(files))
 
-	cleaner.SendEmail()
+	//cleaner.SendEmail()
 
 }
