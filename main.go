@@ -12,10 +12,11 @@ func main() {
 	files := cleaner.GetSortedFiles(root)
 
 	for _, f := range files {
-		fmt.Printf("%s %s\n", f.Info.ModTime(), f.Path)
+		fmt.Printf("%s %s\n", f.ModTime(), f.Path)
 	}
 	fmt.Println("files found: ", len(files))
 
 	//cleaner.SendEmail()
+	cleaner.ParseConf()
 
 }

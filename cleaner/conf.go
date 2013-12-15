@@ -6,16 +6,19 @@ import (
 	"io"
 	"log"
 	"os"
+	"os/user"
 	"path/filepath"
 	"strings"
 )
 
 type Settings struct {
-	Server   string `json:server`
-	Port     int    `json:port`
-	Username string `json:username`
-	Password string `json:password`
-	To       string `json:to`
+	Server          string `json:server`
+	Port            int    `json:port`
+	Username        string `json:username`
+	Password        string `json:password`
+	To              string `json:to`
+	MailThreshold   int    `json:mailThreshold`
+	DeleteThreshold int    `json:deleteThreshold`
 }
 
 func (conf Settings) ToAddresses() []string {
@@ -50,6 +53,8 @@ func ReadConf(configFile io.Reader) Settings {
 }
 
 func ParseConf() Settings {
-	path := "~/.go-clean-filesrc"
+	usr, _ := user.Current()
+	dir := usr.HomeDir
+	path := dir + "/.go-clean-filesrc"
 	return ReadConf(openConf(path))
 }
