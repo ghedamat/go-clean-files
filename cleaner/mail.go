@@ -8,11 +8,11 @@ import (
 )
 
 func SendEmail() {
-	settings := ReadConf()
+	settings := ParseConf()
 
 	to := settings.To
-	subject := "subject"
-	msg := "message"
+	subject := "subject 2"
+	msg := "message 2"
 
 	body := "To: " + to + "\r\nSubject: " + subject + "\r\n\r\n" + msg
 
