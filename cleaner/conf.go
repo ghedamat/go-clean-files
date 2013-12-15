@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"strings"
 )
 
 type Settings struct {
@@ -14,6 +15,14 @@ type Settings struct {
 	Username string `json:username`
 	Password string `json:password`
 	To       string `json:to`
+}
+
+func (conf Settings) ToAddresses() []string {
+	parts := strings.Split(conf.To, ",")
+	for i, v := range parts {
+		parts[i] = strings.TrimSpace(v)
+	}
+	return parts
 }
 
 func openConf() *os.File {
