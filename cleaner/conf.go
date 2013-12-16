@@ -41,7 +41,6 @@ func openConf(path string) *os.File {
 func ReadConf(configFile io.Reader) Settings {
 
 	var settings Settings
-	//configFile := openConf()
 
 	jsonParser := json.NewDecoder(configFile)
 	if err := jsonParser.Decode(&settings); err != nil {

@@ -7,9 +7,7 @@ import (
 	"strings"
 )
 
-func SendEmail() {
-	settings := ParseConf()
-
+func SendEmail(settings Settings) {
 	to := settings.To
 	subject := "subject 2"
 	msg := "message 2"
