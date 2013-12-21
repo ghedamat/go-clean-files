@@ -11,13 +11,16 @@ func main() {
 	root := flag.Arg(0)
 	settings := cleaner.ParseConf()
 
-	files := cleaner.GetSortedFiles(root, settings)
+	mailFiles := cleaner.GetSortedFiles(root, settings.MailThreshold)
+	deleteFiles := cleaner.GetSortedFiles(root, settings.DeleteThreshold)
 
-	for _, f := range files {
+	for _, f := range mailFiles {
 		fmt.Printf("%s %s\n", f.ModTime(), f.Path)
 	}
-	fmt.Println("files found: ", len(files))
+	fmt.Println("mail files found: ", len(mailFiles))
+	fmt.Println("delete files found: ", len(deleteFiles))
 
-	//cleaner.SendEmail(settings)
+	//cleaner.SendEmail(settings, mailFiles)
+	//cleaner.DeleteFiles(deleteFiles)
 
 }

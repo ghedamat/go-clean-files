@@ -46,9 +46,9 @@ func filterFiles(arr *[]File, days int) {
 	*arr = files[:n]
 }
 
-func GetSortedFiles(root string, conf Settings) []File {
+func GetSortedFiles(root string, days int) []File {
 	arr := findFiles(root)
 	sortFiles(arr)
-	filterFiles(&arr, conf.MailThreshold)
+	filterFiles(&arr, days)
 	return arr
 }

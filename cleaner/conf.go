@@ -19,6 +19,7 @@ type Settings struct {
 	To              string `json:to`
 	MailThreshold   int    `json:mailThreshold`
 	DeleteThreshold int    `json:deleteThreshold`
+	Subject         string `json:subject`
 }
 
 func (conf Settings) ToAddresses() []string {
