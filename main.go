@@ -9,6 +9,7 @@ import (
 func main() {
 	sendMail := flag.Bool("m", false, "enable email notification")
 	remove := flag.Bool("d", false, "enable file removal")
+	verbose := flag.Bool("v", false, "show files that will be deleted")
 	flag.Parse()
 	root := flag.Arg(0)
 	settings := cleaner.ParseConf()
@@ -16,11 +17,11 @@ func main() {
 	mailFiles := cleaner.GetSortedFiles(root, settings.MailThreshold)
 	deleteFiles := cleaner.GetSortedFiles(root, settings.DeleteThreshold)
 
-	for _, f := range mailFiles {
-		fmt.Printf("%s %s\n", f.ModTime(), f.Path)
+	if *verbose {
+		for _, f := range mailFiles {
+			fmt.Printf("%s %s\n", f.ModTime(), f.Path)
+		}
 	}
-	fmt.Println("mail files found: ", len(mailFiles))
-	fmt.Println("delete files found: ", len(deleteFiles))
 
 	if *sendMail {
 		fmt.Println("sending Email")
@@ -31,5 +32,8 @@ func main() {
 		fmt.Println("removing Files")
 		cleaner.DeleteFiles(deleteFiles)
 	}
+
+	fmt.Println("mail files found: ", len(mailFiles))
+	fmt.Println("delete files found: ", len(deleteFiles))
 
 }
