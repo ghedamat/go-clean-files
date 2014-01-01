@@ -7,6 +7,8 @@ import (
 )
 
 func main() {
+	sendMail := flag.Bool("m", false, "enable email notification")
+	remove := flag.Bool("d", false, "enable file removal")
 	flag.Parse()
 	root := flag.Arg(0)
 	settings := cleaner.ParseConf()
@@ -20,7 +22,14 @@ func main() {
 	fmt.Println("mail files found: ", len(mailFiles))
 	fmt.Println("delete files found: ", len(deleteFiles))
 
-	//cleaner.SendEmail(settings, mailFiles)
-	//cleaner.DeleteFiles(deleteFiles)
+	if *sendMail {
+		fmt.Println("sending Email")
+		cleaner.SendEmail(settings, mailFiles)
+	}
+
+	if *remove {
+		fmt.Println("removing Files")
+		cleaner.DeleteFiles(deleteFiles)
+	}
 
 }
