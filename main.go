@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/ghedamat/go-clean-files/cleaner"
+	"os"
 )
 
 func main() {
@@ -12,6 +13,11 @@ func main() {
 	verbose := flag.Bool("v", false, "show files that will be deleted")
 	flag.Parse()
 	root := flag.Arg(0)
+
+	if root == "" {
+		fmt.Println("usage: go-clean-files [-v|-d|-m] PATH")
+		os.Exit(0)
+	}
 	settings := cleaner.ParseConf()
 
 	mailFiles := cleaner.GetSortedFiles(root, settings.MailThreshold)
