@@ -2,7 +2,6 @@ package cleaner
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -48,7 +47,6 @@ func ReadConf(configFile io.Reader) Settings {
 		log.Fatal("parsing config file", err.Error())
 	}
 
-	fmt.Printf("%s %d %s %s\n", settings.Server, settings.Port, settings.Username, settings.Password)
 	return settings
 }
 
